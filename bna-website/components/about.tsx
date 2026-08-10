@@ -4,6 +4,45 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function AboutUs() {
+  // === VARIANT ANIMASI ===
+  const textContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 }
+    }
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const imageLeftAnim = {
+    hidden: { opacity: 0, x: -30, y: 40 },
+    visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
+  const imageRightAnim = {
+    hidden: { opacity: 0, x: 30, y: -40 },
+    visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } }
+  };
+
+  const badgePop = {
+    hidden: { opacity: 0, scale: 0.5, y: 20 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0, 
+      transition: { type: "spring", stiffness: 120, damping: 15, delay: 0.6 } 
+    }
+  };
+
   return (
     <section id="about" className="py-24 bg-slate-900 overflow-hidden relative">
       <style>
@@ -45,7 +84,14 @@ export default function AboutUs() {
           <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
             <div className="grid grid-cols-2 gap-4 sm:gap-6 items-center relative z-10">
               
-              <div className="transform translate-y-6 lg:translate-y-10 relative z-10">
+              {/* Gambar 1 (Kiri) */}
+              <motion.div 
+                variants={imageLeftAnim}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                className="transform translate-y-6 lg:translate-y-10 relative z-10"
+              >
                 <div className="rounded-[2rem] overflow-hidden shadow-2xl bg-slate-800 group border border-white/10">
                   <img 
                     src="/gambar1.jpg" 
@@ -53,9 +99,16 @@ export default function AboutUs() {
                     className="w-full aspect-[4/5] object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
                   />
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="transform -translate-y-6 lg:-translate-y-10 relative z-10">
+              {/* Gambar 2 (Kanan) */}
+              <motion.div 
+                variants={imageRightAnim}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                className="transform -translate-y-6 lg:-translate-y-10 relative z-10"
+              >
                 <div className="rounded-[2rem] overflow-hidden shadow-2xl bg-slate-800 group border border-white/10">
                   <img 
                     src="/gambar2.jpg" 
@@ -63,16 +116,21 @@ export default function AboutUs() {
                     className="w-full aspect-[4/5] object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
                   />
                 </div>
-              </div>
+              </motion.div>
 
-              {/* ================= FLOATING BADGE (DRAGGABLE & SMOOTH HOVER) ================= */}
+              {/* ================= FLOATING BADGE (DRAGGABLE & ANIMATED) ================= */}
               <div className="absolute left-[35%] sm:left-[40%] lg:left-[42%] -bottom-2 sm:-bottom-4 lg:-bottom-6 z-30">
                 <motion.div 
+                  variants={badgePop}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
                   drag
                   dragConstraints={{ top: -100, bottom: 100, left: -150, right: 150 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  // Transisi khusus untuk hover/drag agar tidak bentrok dengan animasi scroll
+                  whileHoverTransition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="bg-slate-800/70 backdrop-blur-md rounded-2xl py-3 px-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] border border-white/15 border-b-4 border-b-red-500 flex items-center gap-4 select-none touch-none cursor-grab active:cursor-grabbing"
                 >
                   <div className="relative flex items-center justify-center w-10 h-10">
@@ -93,29 +151,35 @@ export default function AboutUs() {
           </div>
 
           {/* ================= BAGIAN KANAN: Teks ================= */}
-          <div className="relative z-10 mt-12 lg:mt-0">
+          <motion.div 
+            variants={textContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="relative z-10 mt-12 lg:mt-0"
+          >
             
-            <div className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
+            <motion.div variants={fadeInUp} className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
               About Us
-            </div>
+            </motion.div>
 
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight drop-shadow-md">
+            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight drop-shadow-md">
               Excellence In <br className="hidden md:block" />
               <span className="text-red-500">
                 Every Detail
               </span>
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-slate-300 leading-relaxed mb-10">
+            <motion.p variants={fadeInUp} className="text-lg text-slate-300 leading-relaxed mb-10">
               We provide electrical panel solutions, including component supply and services such as 
               installation, troubleshooting, and design. With competitive pricing and fast response, 
               we deliver reliable support for your operations.
-            </p>
+            </motion.p>
 
             <div className="space-y-3">
               
               {/* === LIST 1 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+              <motion.div variants={slideInRight} className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
                 <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
@@ -133,10 +197,10 @@ export default function AboutUs() {
                     Quick, reliable support to meet urgent and ongoing needs.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* === LIST 2 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+              <motion.div variants={slideInRight} className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
                 <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
@@ -154,10 +218,10 @@ export default function AboutUs() {
                     Complete services from supply to installation, backed by strong technical expertise.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* === LIST 3 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+              <motion.div variants={slideInRight} className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
                 <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
@@ -175,10 +239,10 @@ export default function AboutUs() {
                     Professional execution with assured results you can rely on.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>
