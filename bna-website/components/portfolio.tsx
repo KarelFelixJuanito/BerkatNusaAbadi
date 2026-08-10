@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react"; // Import ikon X untuk tombol close
+import { X } from "lucide-react"; 
 
 export default function Portfolio() {
-  // Data portofolio yang diperluas dengan deskripsi detail
   const portfolios = [
     {
       id: 1,
@@ -29,10 +28,8 @@ export default function Portfolio() {
     }
   ];
 
-  // State untuk menyimpan portofolio mana yang sedang diklik (null jika tidak ada yang diklik)
   const [selectedPort, setSelectedPort] = useState<typeof portfolios[0] | null>(null);
 
-  // Efek untuk mengunci scroll background saat pop-up terbuka
   useEffect(() => {
     if (selectedPort) {
       document.body.style.overflow = "hidden";
@@ -79,7 +76,7 @@ export default function Portfolio() {
           <motion.div 
             key={port.id}
             variants={itemVariants}
-            onClick={() => setSelectedPort(port)} // Membuka pop-up saat diklik
+            onClick={() => setSelectedPort(port)} 
             className="group relative h-80 rounded-[2rem] overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900 group-hover:scale-110 transition-transform duration-700 ease-in-out"></div>
@@ -100,59 +97,66 @@ export default function Portfolio() {
         ))}
       </motion.div>
 
-      {/* POP-UP (MODAL) ELEGANT */}
+      {/* POP-UP (MODAL) CLEAR GLASSMORPHISM */}
       <AnimatePresence>
         {selectedPort && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-slate-900/70 backdrop-blur-md"
-            onClick={() => setSelectedPort(null)} // Menutup pop-up jika background gelap diklik
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm"
+            onClick={() => setSelectedPort(null)} 
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()} // Mencegah pop-up tertutup saat kotak putihnya diklik
-              className="relative w-full max-w-2xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()} 
+              // Wrapper Modal (Kaca Luar)
+              className="relative w-full max-w-2xl bg-white/10 backdrop-blur-3xl border border-white/30 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col"
             >
-              {/* Tombol X di Pojok Kanan Atas */}
+              
+              {/* TOMBOL "X" */}
               <button
                 onClick={() => setSelectedPort(null)}
-                className="absolute top-4 right-4 z-30 p-2 bg-black/20 hover:bg-red-500 text-white rounded-full backdrop-blur-md transition-colors"
+                className="absolute top-4 right-4 z-30 p-2.5 bg-slate-900/10 backdrop-blur-md border border-white/20 text-white rounded-full transition-all duration-300 hover:bg-red-500 hover:border-red-500 shadow-sm"
                 aria-label="Close"
               >
-                <X size={24} />
+                <X size={20} strokeWidth={2.5} />
               </button>
 
-              {/* Area Gambar Khusus di dalam Pop-up */}
-              <div className="h-48 sm:h-64 relative w-full overflow-hidden group">
-                 <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900 z-0"></div>
-                 <div className="absolute inset-0 flex items-center justify-center text-slate-500/50 italic font-semibold z-10">
-                    [Image Slot for {selectedPort.title}]
+              {/* Area Gambar (Dark Glass) */}
+              <div className="h-48 sm:h-64 relative w-full overflow-hidden group border-b border-white/20">
+                 <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-md z-0"></div>
+                 <div className="absolute inset-0 flex items-center justify-center text-slate-300 italic font-medium z-10">
+                   [Image Slot for {selectedPort.title}]
                  </div>
-                 {/* Aksen visual halus */}
-                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-20"></div>
               </div>
 
-              {/* Area Teks Detail */}
-              <div className="p-8 sm:p-10 bg-white relative z-30">
+              {/* Area Teks Detail (Warna Putih Dinaikkan Agar Teks Tajam & Terbaca Jelas) */}
+              <div className="p-8 sm:p-10 relative z-30 bg-white/85">
                 <div className="w-12 h-1.5 bg-red-500 rounded-full mb-5"></div>
-                <h3 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">
+                
+                {/* Efek drop-shadow dihapus agar teks kembali tajam */}
+                <h3 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">
                   {selectedPort.title}
                 </h3>
-                <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                <p className="text-slate-700 font-medium text-lg leading-relaxed mb-8">
                   {selectedPort.fullDesc}
                 </p>
-                <div className="flex justify-end">
+                
+                <div className="flex justify-end mt-4">
+                  
+                  {/* TOMBOL "CLOSE DETAILS" (Super Clear Glass) */}
                   <button
                     onClick={() => setSelectedPort(null)}
-                    className="bg-slate-800 hover:bg-red-500 text-white px-8 py-3 rounded-full font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-1"
+                    // Menggunakan background transparan dengan border tegas, efek "butek" akan hilang sepenuhnya
+                    className="bg-transparent border-[1.5px] border-slate-300 text-slate-800 px-8 py-3 rounded-full font-black tracking-wide transition-all duration-300 hover:bg-slate-900 hover:border-slate-900 hover:text-white hover:-translate-y-1 hover:shadow-lg"
                   >
                     Close Details
                   </button>
+                  
                 </div>
               </div>
             </motion.div>
