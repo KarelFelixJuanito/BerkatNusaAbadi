@@ -10,9 +10,8 @@ export default function Footer() {
 
   return (
     <>
-      {/* Brands Section (Infinite Marquee Berjalan) */}
+      {/* 1. Brands Section (Infinite Marquee Berjalan) */}
       <section className="py-12 bg-white overflow-hidden border-t border-slate-100 relative">
-        {/* Efek pudar di kiri dan kanan layar */}
         <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
         
@@ -20,7 +19,7 @@ export default function Footer() {
         
         <div className="flex whitespace-nowrap">
           <motion.div 
-            animate={{ x: [0, -1000] }} // Menggeser secara horizontal
+            animate={{ x: [0, -1000] }} 
             transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
             className="flex gap-20 items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-700"
           >
@@ -31,8 +30,22 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* Main Footer */}
-      <footer className="bg-[#0f172a] text-slate-400 py-16 px-6 border-t border-slate-800 overflow-hidden">
+      {/* 2. Google Maps Section (Full Width) */}
+      <section className="w-full h-80 md:h-[400px] border-t border-slate-200 bg-slate-200 relative z-0">
+        <iframe
+          src="https://maps.google.com/maps?q=Harkot%20Trade%20Center,%20Tangerang&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen={true}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="BNA Office Location Map"
+        ></iframe>
+      </section>
+
+      {/* 3. Main Footer */}
+      <footer className="bg-[#0f172a] text-slate-400 py-16 px-6 border-t border-slate-800 overflow-hidden relative z-10">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
           <motion.div 
             initial={{ opacity: 0, x: -30 }} 
@@ -40,10 +53,21 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-black text-white mb-6 tracking-tight">
-              B<span className="text-red-500">N</span>A
-            </h2>
-            <p className="max-w-sm text-lg leading-relaxed">
+            {/* --- BAGIAN LOGO DIPERBAIKI (SPOTLIGHT EFEK) --- */}
+            <div className="relative flex items-center mb-6 w-fit">
+              {/* Efek Spotlight Putih ber-blur */}
+              <div className="absolute inset-0 bg-white blur-[20px] rounded-full scale-125 z-0 pointer-events-none"></div>
+              
+              {/* Logo BNA */}
+              <img 
+                src="/logo-bna.pn g" 
+                alt="BNA Logo" 
+                className="h-14 md:h-16 w-auto object-contain mix-blend-multiply relative z-10" 
+              />
+            </div>
+            {/* ----------------------------------------------- */}
+
+            <p className="max-w-sm text-lg leading-relaxed mt-4">
               Berkat Nusa Abadi - Competitive Pricing. Fast Electrical Solutions.
             </p>
           </motion.div>
@@ -56,16 +80,16 @@ export default function Footer() {
             className="space-y-5"
           >
             <h4 className="text-white font-bold mb-6 tracking-wider uppercase text-sm">Contact Information</h4>
-            <p className="flex items-start gap-4 hover:text-white transition-colors">
+            <p className="flex items-start gap-4 hover:text-white transition-colors cursor-default">
               <span className="text-red-500">📍</span> Kompleks Harkot Trade Centre Lt. Dasar, Blok B3/7, Tangerang, Banten 15114
             </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors">
+            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
               <span className="text-red-500">📞</span> 0859-2177-4448
             </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors">
+            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
               <span className="text-red-500">✉️</span> bna.elect2006@gmail.com
             </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors">
+            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
               <span className="text-red-500">🌐</span> www.berkatnusaabadi.com
             </p>
           </motion.div>
