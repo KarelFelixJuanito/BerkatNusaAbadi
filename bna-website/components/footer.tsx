@@ -58,7 +58,7 @@ export default function Footer() {
             <div className="relative flex items-center mb-6 w-fit">
               <div className="absolute inset-0 bg-white blur-[20px] rounded-full scale-125 z-0 pointer-events-none"></div>
               <img 
-                src="/logo-bna.jpg" 
+                src="/logo-bna.png" 
                 alt="BNA Logo" 
                 className="h-14 md:h-16 w-auto object-contain mix-blend-multiply relative z-10" 
               />
