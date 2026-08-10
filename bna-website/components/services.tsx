@@ -73,7 +73,7 @@ export default function Services() {
           viewport={{ once: true, amount: 0.5 }}
         >
           <div className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
-              About Us
+              Services
           </div>
           
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight relative z-10">
