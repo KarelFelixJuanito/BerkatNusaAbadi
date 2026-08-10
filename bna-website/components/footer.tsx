@@ -41,6 +41,7 @@ export default function Footer() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="BNA Office Location Map"
+          className="grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
         ></iframe>
       </section>
 
@@ -53,19 +54,15 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* --- BAGIAN LOGO DIPERBAIKI (SPOTLIGHT EFEK) --- */}
+            {/* Logo BNA dengan Efek Spotlight */}
             <div className="relative flex items-center mb-6 w-fit">
-              {/* Efek Spotlight Putih ber-blur */}
               <div className="absolute inset-0 bg-white blur-[20px] rounded-full scale-125 z-0 pointer-events-none"></div>
-              
-              {/* Logo BNA */}
               <img 
-                src="/logo-bna.png" 
+                src="/logo-bna.jpg" 
                 alt="BNA Logo" 
                 className="h-14 md:h-16 w-auto object-contain mix-blend-multiply relative z-10" 
               />
             </div>
-            {/* ----------------------------------------------- */}
 
             <p className="max-w-sm text-lg leading-relaxed mt-4">
               Berkat Nusa Abadi - Competitive Pricing. Fast Electrical Solutions.
@@ -77,21 +74,52 @@ export default function Footer() {
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-5"
+            className="space-y-6 flex flex-col"
           >
-            <h4 className="text-white font-bold mb-6 tracking-wider uppercase text-sm">Contact Information</h4>
-            <p className="flex items-start gap-4 hover:text-white transition-colors cursor-default">
-              <span className="text-red-500">📍</span> Kompleks Harkot Trade Centre Lt. Dasar, Blok B3/7, Tangerang, Banten 15114
-            </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
-              <span className="text-red-500">📞</span> 0859-2177-4448
-            </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
-              <span className="text-red-500">✉️</span> bna.elect2006@gmail.com
-            </p>
-            <p className="flex items-center gap-4 hover:text-white transition-colors cursor-default">
-              <span className="text-red-500">🌐</span> www.berkatnusaabadi.com
-            </p>
+            <h4 className="text-white font-bold mb-2 tracking-wider uppercase text-sm">Contact Information</h4>
+            
+            {/* Tautan Lokasi (Google Maps) */}
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Kompleks+Harkot+Trade+Centre+Lt.+Dasar,+Blok+B3/7,+Tangerang,+Banten+15114" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-start gap-4 text-slate-400 hover:text-white transition-colors cursor-pointer group w-fit"
+            >
+              <span className="text-red-500 group-hover:scale-125 transition-transform duration-300">📍</span> 
+              <span className="group-hover:underline underline-offset-4 decoration-red-500/50">Kompleks Harkot Trade Centre Lt. Dasar, Blok B3/7, Tangerang, Banten 15114</span>
+            </a>
+            
+            {/* Tautan Nomor Telepon (WhatsApp) */}
+            <a 
+              href="https://wa.me/6285921774448" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-4 text-slate-400 hover:text-white transition-colors cursor-pointer group w-fit"
+            >
+              <span className="text-red-500 group-hover:scale-125 transition-transform duration-300">📞</span> 
+              <span className="group-hover:underline underline-offset-4 decoration-red-500/50">0859-2177-4448</span>
+            </a>
+            
+            {/* Tautan Email (Gmail/Mail Client) */}
+            <a 
+              href="mailto:bna.elect2006@gmail.com" 
+              className="flex items-center gap-4 text-slate-400 hover:text-white transition-colors cursor-pointer group w-fit"
+            >
+              <span className="text-red-500 group-hover:scale-125 transition-transform duration-300">✉️</span> 
+              <span className="group-hover:underline underline-offset-4 decoration-red-500/50">bna.elect2006@gmail.com</span>
+            </a>
+            
+            {/* Tautan Website */}
+            <a 
+              href="https://www.berkatnusaabadi.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-4 text-slate-400 hover:text-white transition-colors cursor-pointer group w-fit"
+            >
+              <span className="text-red-500 group-hover:scale-125 transition-transform duration-300">🌐</span> 
+              <span className="group-hover:underline underline-offset-4 decoration-red-500/50">www.berkatnusaabadi.com</span>
+            </a>
+            
           </motion.div>
         </div>
         
