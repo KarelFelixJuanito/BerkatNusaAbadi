@@ -1,136 +1,192 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Award, ChevronRight } from "lucide-react"; 
+import React from 'react';
 
-export default function About() {
-  // 1. Varian Induk untuk mengatur urutan muncul (Stagger)
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Jeda 0.15 detik antar elemen
-        delayChildren: 0.2,
-      }
-    }
-  };
-
-  // 2. Varian Anak untuk efek masuk dari kiri
-  const itemLeftVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 80, damping: 15 } }
-  };
-
-  // 3. Varian khusus untuk garis merah (efek menggambar)
-  const lineVariants = {
-    hidden: { width: 0, opacity: 0 },
-    visible: { width: 80, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
-  };
-
-  // 4. Varian untuk gambar (efek memantul dan berputar 3D)
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8, rotate: -5, y: 50 },
-    visible: { opacity: 1, scale: 1, rotate: 0, y: 0, transition: { duration: 0.8, type: "spring", bounce: 0.4 } }
-  };
-
+export default function AboutUs() {
   return (
-    <section id="about" className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
-      <div className="grid md:grid-cols-2 gap-16 items-center">
-        
-        {/* BAGIAN KIRI: TEKS (Dengan Staggered Animation) */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true, amount: 0.3 }} 
-          className="space-y-6"
-        >
-          <motion.h2 variants={itemLeftVariants} className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">
-            About Us
-          </motion.h2>
-          
-          <motion.div variants={lineVariants} className="h-1.5 bg-red-500 rounded-full"></motion.div>
-          
-          <motion.p variants={itemLeftVariants} className="text-lg leading-relaxed text-slate-600">
-            We provide electrical panel solutions, including component supply and services such as installation, troubleshooting, and design. With competitive pricing and fast response, we deliver reliable support for your operations.
-          </motion.p>
-          
-          <motion.ul variants={containerVariants} className="space-y-4 mt-8">
-            {["Professional Execution", "High Quality Component", "Rapid Diagnosis"].map((item, i) => (
-              <motion.li 
-                key={i} 
-                variants={itemLeftVariants}
-                whileHover={{ x: 10 }} // Efek geser kanan saat di-hover
-                className="flex items-center gap-4 text-slate-700 font-bold text-lg cursor-pointer group"
-              >
-                <div className="w-8 h-8 rounded-full bg-red-50 group-hover:bg-red-500 transition-colors flex items-center justify-center border border-red-100 group-hover:border-red-500 shadow-sm">
-                  <ChevronRight size={18} className="text-red-500 group-hover:text-white transition-colors" />
-                </div>
-                <span className="group-hover:text-red-500 transition-colors">{item}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
-        
-        {/* BAGIAN KANAN: GAMBAR & DEKORASI */}
-        <div className="relative mt-10 md:mt-0">
-          
-          {/* Kotak Gambar Utama dengan Efek Masuk yang Bouncy */}
-          <motion.div 
-            variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl bg-slate-200 group border-4 border-white z-10"
-          >
-            <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-all duration-700 z-10 pointer-events-none"></div>
-            <img 
-              src="/about-image.jpg" 
-              alt="BNA Technician at Work" 
-              className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 group-hover:rotate-1"
-            />
-          </motion.div>
+    <section id="about" className="py-24 bg-slate-900 overflow-hidden relative">
+      <style>
+        {`
+          @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+          }
+          .animate-blob {
+            animation: blob 8s infinite;
+          }
+          .animation-delay-2000 {
+            animation-delay: 2s;
+          }
+          .animation-delay-4000 {
+            animation-delay: 4s;
+          }
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+          }
+          .animate-float {
+            animation: float 5s ease-in-out infinite;
+          }
+        `}
+      </style>
 
-          {/* Lencana Mengambang (Lebih Dinamis) */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0, x: -50 }}
-            whileInView={{ opacity: 1, scale: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-            className="absolute -bottom-8 -left-4 md:-left-12 z-20"
-          >
-            <motion.div 
-              animate={{ y: [0, -15, 0] }} 
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="bg-white px-6 py-5 rounded-2xl shadow-2xl border-b-4 border-red-500 flex items-center gap-4"
-            >
-              <motion.div 
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500"
-              >
-                <Award size={28} />
-              </motion.div>
-              <div>
-                <div className="text-2xl font-black text-slate-800 uppercase tracking-tight">Since</div>
-                <div className="text-sm font-bold text-slate-500 leading-tight">2006</div>
+      {/* ================= EFEK BACKGROUND DARK MODE + EKSTRA CAHAYA PUTIH ================= */}
+      {/* 1. Pola Titik Putih Halus (Opasitas dinaikkan sedikit agar lebih terlihat) */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.06] pointer-events-none z-0"></div>
+      
+      {/* 2. Cahaya Putih Lembut (Diperbanyak dan disebar) */}
+      <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-white/5 rounded-full filter blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-white/10 rounded-full filter blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full filter blur-[100px] pointer-events-none z-0"></div>
+
+      {/* 3. Latar Belakang Animasi Blur Biru dan Oranye */}
+      <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-blob pointer-events-none z-0"></div>
+      <div className="absolute top-20 right-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-blob animation-delay-2000 pointer-events-none z-0"></div>
+      <div className="absolute -bottom-10 left-1/2 w-72 h-72 bg-blue-400 rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-blob animation-delay-4000 pointer-events-none z-0"></div>
+      {/* ==================================================================================== */}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          
+          {/* ================= BAGIAN KIRI: Gambar ================= */}
+          <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 items-center relative z-10">
+              
+              <div className="transform translate-y-6 lg:translate-y-10 relative z-10">
+                <div className="rounded-[2rem] overflow-hidden shadow-2xl bg-slate-800 group border border-white/10">
+                  <img 
+                    src="/gambar1.jpg" 
+                    alt="Teknisi bekerja siang hari"
+                    className="w-full aspect-[4/5] object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                  />
+                </div>
               </div>
-            </motion.div>
-          </motion.div>
-          
-          {/* Elemen Latar Belakang yang "Bernapas" (Pulse & Scale) */}
-          <motion.div 
-            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-            className="absolute -top-10 -right-10 w-40 h-40 bg-red-500 rounded-full blur-3xl z-0"
-          ></motion.div>
-          
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], rotate: [12, 0, 12] }}
-            transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-            className="absolute -bottom-16 -right-10 w-56 h-56 bg-slate-800/5 rounded-[3rem] z-0"
-          ></motion.div>
+
+              <div className="transform -translate-y-6 lg:-translate-y-10 relative z-10">
+                <div className="rounded-[2rem] overflow-hidden shadow-2xl bg-slate-800 group border border-white/10">
+                  <img 
+                    src="/gambar2.jpg" 
+                    alt="Instalasi panel listrik"
+                    className="w-full aspect-[4/5] object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                  />
+                </div>
+              </div>
+
+              {/* Floating Badge (SINCE 2006) - Dark Mode */}
+              <div className="absolute left-[35%] sm:left-[40%] lg:left-[42%] -bottom-2 sm:-bottom-4 lg:-bottom-6 z-30">
+                <div className="animate-float bg-slate-800/80 backdrop-blur-md rounded-2xl py-3 px-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] border border-white/10 border-b-4 border-b-red-500 flex items-center gap-4">
+                  <div className="relative flex items-center justify-center w-10 h-10">
+                    <div className="absolute inset-0 bg-red-500/20 rounded-full blur-md"></div>
+                    <svg className="relative z-10 w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15a5.25 5.25 0 100-10.5 5.25 5.25 0 000 10.5z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 14.25l-1.5 5.25L12 18l5.25 1.5-1.5-5.25" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xl font-black text-white leading-none tracking-wider mb-1">SINCE</p>
+                    <p className="text-sm font-bold text-slate-300 leading-none">2006</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          {/* ================= BAGIAN KANAN: Teks ================= */}
+          <div className="relative z-10 mt-12 lg:mt-0">
+            
+            <div className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
+              About Us
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight drop-shadow-md">
+              Excellence In <br className="hidden md:block" />
+              <span className="text-red-500">
+                Every Detail
+              </span>
+            </h2>
+
+            <p className="text-lg text-slate-300 leading-relaxed mb-10">
+              We provide electrical panel solutions, including component supply and services such as 
+              installation, troubleshooting, and design. With competitive pricing and fast response, 
+              we deliver reliable support for your operations.
+            </p>
+
+            <div className="space-y-3">
+              
+              {/* === LIST 1 === */}
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
+                
+                {/* --- SUPER GLASSMORPHISM EFFECT (DARK MODE) --- */}
+                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
+                </div>
+
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                </div>
+                <div className="pt-1 relative z-20">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">Fast Response & Delivery</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                    Quick, reliable support to meet urgent and ongoing needs.
+                  </p>
+                </div>
+              </div>
+
+              {/* === LIST 2 === */}
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
+                
+                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
+                </div>
+
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                  </svg>
+                </div>
+                <div className="pt-1 relative z-20">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">One-Stop Electrical Solutions</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                    Complete services from supply to installation, backed by strong technical expertise.
+                  </p>
+                </div>
+              </div>
+
+              {/* === LIST 3 === */}
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
+                
+                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
+                </div>
+
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                  </svg>
+                </div>
+                <div className="pt-1 relative z-20">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">Guaranteed Quality Work</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                    Professional execution with assured results you can rely on.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

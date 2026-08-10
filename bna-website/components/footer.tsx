@@ -60,7 +60,7 @@ export default function Footer() {
               
               {/* Logo BNA */}
               <img 
-                src="/logo-bna.pn g" 
+                src="/logo-bna.png" 
                 alt="BNA Logo" 
                 className="h-14 md:h-16 w-auto object-contain mix-blend-multiply relative z-10" 
               />

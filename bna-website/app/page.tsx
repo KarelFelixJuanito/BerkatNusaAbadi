@@ -136,58 +136,6 @@ export default function Home() {
 
         <About />
         <Services />
-
-{/* 4. WHY CHOOSE US (CAROUSEL MODERN) - Kode tetap sama seperti sebelumnya */}
-        <section className="py-24 px-6 bg-slate-800 text-white overflow-hidden relative">
-          <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-          <div className="max-w-5xl mx-auto relative z-10">
-            <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="text-4xl font-bold mb-4">Why Choose Us</h2>
-              <div className="w-20 h-1.5 bg-red-500 mx-auto rounded-full"></div>
-            </motion.div>
-            <div className="relative bg-slate-800/80 backdrop-blur-xl rounded-[2rem] p-8 md:p-14 shadow-2xl border border-slate-700/80 group">
-              <button onClick={prevSlide} className="absolute left-0 md:-left-7 top-1/2 -translate-y-1/2 bg-slate-700 hover:bg-red-500 p-4 rounded-full transition-all z-30 shadow-lg border border-slate-600 group-hover:scale-110">
-                <ChevronLeft size={24} />
-              </button>
-              <div className="overflow-hidden min-h-[300px] flex items-center justify-center relative z-20">
-                <AnimatePresence mode="wait">
-                  <motion.div key={currentIndex} initial={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: 1.1, filter: "blur(4px)" }} transition={{ duration: 0.4, ease: "easeInOut" }} className="w-full px-2 flex flex-col md:flex-row items-center gap-10 md:gap-20">
-                    {(() => {
-                      const Icon = whyChooseUs[currentIndex].icon;
-                      return (
-                        <>
-                          <div className="relative md:w-1/2 flex justify-center items-center">
-                            <div className="absolute text-[140px] md:text-[220px] font-black text-white/5 select-none -translate-y-4 md:-translate-y-8 pointer-events-none">0{currentIndex + 1}</div>
-                            <div className="relative w-36 h-36 md:w-48 md:h-48 bg-gradient-to-br from-red-500 to-rose-700 rounded-3xl flex items-center justify-center shadow-[0_0_50px_rgba(239,68,68,0.4)] rotate-3 group-hover:rotate-6 transition-transform duration-500">
-                              <Icon size={72} strokeWidth={1.5} className="text-white drop-shadow-md" />
-                            </div>
-                          </div>
-                          <div className="md:w-1/2 text-center md:text-left relative z-10">
-                            <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight tracking-tight">{whyChooseUs[currentIndex].title}</h3>
-                            <p className="text-slate-300 text-lg md:text-xl leading-relaxed">{whyChooseUs[currentIndex].desc}</p>
-                            <div className="mt-8 flex justify-center md:justify-start gap-2">
-                               <div className="w-12 h-1.5 bg-red-500 rounded-full"></div>
-                               <div className="w-3 h-1.5 bg-red-500 rounded-full opacity-50"></div>
-                            </div>
-                          </div>
-                        </>
-                      );
-                    })()}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-              <button onClick={nextSlide} className="absolute right-0 md:-right-7 top-1/2 -translate-y-1/2 bg-slate-700 hover:bg-red-500 p-4 rounded-full transition-all z-30 shadow-lg border border-slate-600 group-hover:scale-110">
-                <ChevronRight size={24} />
-              </button>
-              <div className="flex justify-center gap-3 mt-12 relative z-30">
-                {whyChooseUs.map((_, index) => (
-                  <button key={index} onClick={() => setCurrentIndex(index)} className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-red-500 w-10" : "bg-white/20 w-3 hover:bg-white/50"}`} aria-label={`Go to slide ${index + 1}`} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         <Portfolio />
         <Footer />
       </main>
