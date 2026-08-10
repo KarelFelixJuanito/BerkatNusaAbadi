@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function AboutUs() {
   return (
@@ -22,27 +23,16 @@ export default function AboutUs() {
           .animation-delay-4000 {
             animation-delay: 4s;
           }
-          @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-          }
-          .animate-float {
-            animation: float 5s ease-in-out infinite;
-          }
         `}
       </style>
 
       {/* ================= EFEK BACKGROUND DARK MODE + EKSTRA CAHAYA PUTIH ================= */}
-      {/* 1. Pola Titik Putih Halus (Opasitas dinaikkan sedikit agar lebih terlihat) */}
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.06] pointer-events-none z-0"></div>
       
-      {/* 2. Cahaya Putih Lembut (Diperbanyak dan disebar) */}
       <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-white/5 rounded-full filter blur-[120px] pointer-events-none z-0"></div>
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-white/10 rounded-full filter blur-[150px] pointer-events-none z-0"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full filter blur-[100px] pointer-events-none z-0"></div>
 
-      {/* 3. Latar Belakang Animasi Blur Biru dan Oranye */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-blob pointer-events-none z-0"></div>
       <div className="absolute top-20 right-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-blob animation-delay-2000 pointer-events-none z-0"></div>
       <div className="absolute -bottom-10 left-1/2 w-72 h-72 bg-blue-400 rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-blob animation-delay-4000 pointer-events-none z-0"></div>
@@ -75,9 +65,16 @@ export default function AboutUs() {
                 </div>
               </div>
 
-              {/* Floating Badge (SINCE 2006) - Dark Mode */}
+              {/* ================= FLOATING BADGE (DRAGGABLE & SMOOTH HOVER) ================= */}
               <div className="absolute left-[35%] sm:left-[40%] lg:left-[42%] -bottom-2 sm:-bottom-4 lg:-bottom-6 z-30">
-                <div className="animate-float bg-slate-800/80 backdrop-blur-md rounded-2xl py-3 px-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] border border-white/10 border-b-4 border-b-red-500 flex items-center gap-4">
+                <motion.div 
+                  drag
+                  dragConstraints={{ top: -100, bottom: 100, left: -150, right: 150 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="bg-slate-800/70 backdrop-blur-md rounded-2xl py-3 px-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] border border-white/15 border-b-4 border-b-red-500 flex items-center gap-4 select-none touch-none cursor-grab active:cursor-grabbing"
+                >
                   <div className="relative flex items-center justify-center w-10 h-10">
                     <div className="absolute inset-0 bg-red-500/20 rounded-full blur-md"></div>
                     <svg className="relative z-10 w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
@@ -89,7 +86,7 @@ export default function AboutUs() {
                     <p className="text-xl font-black text-white leading-none tracking-wider mb-1">SINCE</p>
                     <p className="text-sm font-bold text-slate-300 leading-none">2006</p>
                   </div>
-                </div>
+                </motion.div>
               </div>
               
             </div>
@@ -118,67 +115,63 @@ export default function AboutUs() {
             <div className="space-y-3">
               
               {/* === LIST 1 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
-                
-                {/* --- SUPER GLASSMORPHISM EFFECT (DARK MODE) --- */}
-                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+                <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
                   <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
                 </div>
 
-                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                   </svg>
                 </div>
                 <div className="pt-1 relative z-20">
-                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">Fast Response & Delivery</h3>
-                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-500 group-hover:text-red-400">Fast Response & Delivery</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-500">
                     Quick, reliable support to meet urgent and ongoing needs.
                   </p>
                 </div>
               </div>
 
               {/* === LIST 2 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
-                
-                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+                <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
                   <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
                 </div>
 
-                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:-rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                   </svg>
                 </div>
                 <div className="pt-1 relative z-20">
-                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">One-Stop Electrical Solutions</h3>
-                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-500 group-hover:text-red-400">One-Stop Electrical Solutions</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-500">
                     Complete services from supply to installation, backed by strong technical expertise.
                   </p>
                 </div>
               </div>
 
               {/* === LIST 3 === */}
-              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5 cursor-pointer z-10">
-                
-                <div className="absolute inset-0 rounded-3xl transition-all duration-500 ease-out -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+              <div className="group relative flex gap-5 items-start p-5 -mx-5 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1.5 cursor-pointer z-10">
+                <div className="absolute inset-0 rounded-3xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] -z-10 opacity-0 group-hover:opacity-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   <div className="absolute inset-0 bg-slate-800/40 backdrop-blur-xl"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
                   <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-80"></div>
                 </div>
 
-                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043A3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296A3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043A3.746 3.746 0 0121 12z" />
                   </svg>
                 </div>
                 <div className="pt-1 relative z-20">
-                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-300 group-hover:text-red-400">Guaranteed Quality Work</h3>
-                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-white mb-1 transition-colors duration-500 group-hover:text-red-400">Guaranteed Quality Work</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors duration-500">
                     Professional execution with assured results you can rely on.
                   </p>
                 </div>
