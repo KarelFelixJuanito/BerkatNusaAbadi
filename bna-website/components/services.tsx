@@ -50,13 +50,10 @@ export default function Services() {
     <section id="services" className="py-32 px-6 relative overflow-hidden bg-white border-b border-slate-50">
       
       {/* --- BACKGROUND GLOW & DOTS --- */}
-      {/* 1. Cahaya Atas (Di belakang teks "Our Core Services") */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[800px] h-[600px] bg-red-100/60 rounded-full blur-[100px] pointer-events-none z-0"></div>
       
-      {/* 2. Cahaya Bawah (Di bagian bawah tengah kartu) */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 w-[800px] h-[600px] bg-red-100/60 rounded-full blur-[100px] pointer-events-none z-0"></div>
       
-      {/* 3. Pola Titik-Titik Abu-Abu (Dipertegas) */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-[0.4] z-0"
         style={{ backgroundImage: 'radial-gradient(#cbd5e1 1.5px, transparent 1.5px)', backgroundSize: '36px 36px' }}
@@ -72,8 +69,8 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true, amount: 0.5 }}
         >
-          <div className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
-              Services
+          <div className="inline-flex mb-6 px-6 py-2 rounded-full bg-white text-red-500 text-xs font-black tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(239,68,68,0.08)] border border-red-50 relative z-10">
+            Our Services
           </div>
           
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight relative z-10">
@@ -84,7 +81,7 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* GRID LAYOUT KARTU MINIMALIS */}
+        {/* GRID LAYOUT KARTU */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -98,8 +95,11 @@ export default function Services() {
               <motion.div key={index} variants={cardVariants} className="h-full">
                 <Link 
                   href={service.href}
-                  className="group relative bg-white/70 backdrop-blur-md p-8 rounded-[2rem] border border-slate-100 hover:border-red-100 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.12)] transition-all duration-500 cursor-pointer overflow-hidden flex flex-col justify-between h-full min-h-[320px] z-10"
+                  className="group relative bg-white/70 backdrop-blur-md p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.12)] transition-all duration-500 cursor-pointer overflow-hidden flex flex-col justify-between h-full min-h-[320px] z-10 hover:-translate-y-1"
                 >
+                  {/* --- GARIS MERAH ANIMASI DI ATAS KARTU --- */}
+                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out z-20"></div>
+                  
                   {/* GIANT FAINT NUMBER (Watermark 01, 02) */}
                   <div className="absolute -bottom-4 -right-2 text-[140px] font-black text-slate-50 group-hover:text-red-50/40 transition-colors duration-500 select-none z-0">
                     {service.num}
@@ -107,8 +107,8 @@ export default function Services() {
                   
                   <div className="relative z-10">
                     {/* ICON BOX */}
-                    <div className="w-12 h-12 text-slate-700 group-hover:text-red-500 rounded-xl flex items-center mb-6 transition-all duration-500">
-                      <Icon size={28} strokeWidth={1.5} />
+                    <div className="w-12 h-12 bg-transparent text-slate-700 border border-slate-200 group-hover:bg-red-500 group-hover:border-red-500 group-hover:text-white rounded-xl flex items-center justify-center mb-6 transition-all duration-500">
+                      <Icon size={24} strokeWidth={1.5} />
                     </div>
                     
                     {/* TEXT CONTENT */}
@@ -116,7 +116,7 @@ export default function Services() {
                       {service.title}
                     </h3>
                     
-                    <p className="text-slate-500 text-sm leading-relaxed group-hover:text-slate-600 transition-colors">
+                    <p className="text-slate-500 text-sm leading-relaxed transition-colors">
                       {service.desc}
                     </p>
                   </div>
