@@ -41,7 +41,6 @@ export default function Footer() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="BNA Office Location Map"
-          className="grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
         ></iframe>
       </section>
 
