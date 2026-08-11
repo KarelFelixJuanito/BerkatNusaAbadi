@@ -62,6 +62,11 @@ export default function AboutUs() {
           .animation-delay-4000 {
             animation-delay: 4s;
           }
+          @keyframes shine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+}
         `}
       </style>
 
@@ -159,8 +164,20 @@ export default function AboutUs() {
             className="relative z-10 mt-12 lg:mt-0"
           >
             
-            <motion.div variants={fadeInUp} className="inline-block bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase mb-6 shadow-md border border-red-500/20">
-              About Us
+            <motion.div variants={fadeInUp} className="relative inline-block mb-6">
+              {/* Soft glow behind */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-red-500 via-rose-500 to-red-600 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md blur-lg opacity-60 animate-pulse"></div>
+
+              {/* Gradient border wrapper */}
+              <div className="relative bg-gradient-to-r from-red-400 via-rose-500 to-red-600 p-[2px] rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md shadow-lg">
+                <div className="bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase overflow-hidden relative">
+                  
+                  {/* Shine sweep */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full animate-[shine_3s_ease-in-out_infinite]"></div>
+
+                  <span className="relative z-10">About Us</span>
+                </div>
+              </div>
             </motion.div>
 
             <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight drop-shadow-md">
