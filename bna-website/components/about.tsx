@@ -1,11 +1,11 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 export default function AboutUs() {
   // === VARIANT ANIMASI ===
-  const textContainer = {
+  const textContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -13,27 +13,27 @@ export default function AboutUs() {
     }
   };
 
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
   };
 
-  const slideInRight = {
+  const slideInRight: Variants = {
     hidden: { opacity: 0, x: 40 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  const imageLeftAnim = {
+  const imageLeftAnim: Variants = {
     hidden: { opacity: 0, x: -30, y: 40 },
     visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
-  const imageRightAnim = {
+  const imageRightAnim: Variants = {
     hidden: { opacity: 0, x: 30, y: -40 },
     visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } }
   };
 
-  const badgePop = {
+  const badgePop: Variants = {
     hidden: { opacity: 0, scale: 0.5, y: 20 },
     visible: { 
       opacity: 1, 
@@ -66,7 +66,7 @@ export default function AboutUs() {
             0% { transform: translateX(-100%); }
             50% { transform: translateX(100%); }
             100% { transform: translateX(100%); }
-}
+          }
         `}
       </style>
 
@@ -132,10 +132,9 @@ export default function AboutUs() {
                   viewport={{ once: true, amount: 0.5 }}
                   drag
                   dragConstraints={{ top: -100, bottom: 100, left: -150, right: 150 }}
-                  whileHover={{ scale: 1.05 }}
+                  // PERBAIKAN: Memasukkan properti transisi ke dalam whileHover
+                  whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 20 } }}
                   whileTap={{ scale: 0.98 }}
-                  // Transisi khusus untuk hover/drag agar tidak bentrok dengan animasi scroll
-                  whileHoverTransition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="bg-slate-800/70 backdrop-blur-md rounded-2xl py-3 px-5 shadow-[0_15px_30px_rgba(0,0,0,0.5)] border border-white/15 border-b-4 border-b-red-500 flex items-center gap-4 select-none touch-none cursor-grab active:cursor-grabbing"
                 >
                   <div className="relative flex items-center justify-center w-10 h-10">
@@ -165,16 +164,10 @@ export default function AboutUs() {
           >
             
             <motion.div variants={fadeInUp} className="relative inline-block mb-6">
-              {/* Soft glow behind */}
               <div className="absolute -inset-1.5 bg-gradient-to-r from-red-500 via-rose-500 to-red-600 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md blur-lg opacity-60 animate-pulse"></div>
-
-              {/* Gradient border wrapper */}
               <div className="relative bg-gradient-to-r from-red-400 via-rose-500 to-red-600 p-[2px] rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md shadow-lg">
                 <div className="bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase overflow-hidden relative">
-                  
-                  {/* Shine sweep */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full animate-[shine_3s_ease-in-out_infinite]"></div>
-
                   <span className="relative z-10">About Us</span>
                 </div>
               </div>
@@ -247,7 +240,7 @@ export default function AboutUs() {
 
                 <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-red-500 flex items-center justify-center text-red-500 group-hover:text-white shadow-md transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 relative z-20 border border-white/5 group-hover:border-transparent">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-7 h-7">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043A3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296A3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043A3.746 3.746 0 0121 12z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043A3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296A3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043A3.746 3.746 0 0121 12z" />
                   </svg>
                 </div>
                 <div className="pt-1 relative z-20">

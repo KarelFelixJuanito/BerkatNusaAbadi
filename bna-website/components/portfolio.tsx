@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 
 export default function Portfolio() {
@@ -67,7 +67,7 @@ export default function Portfolio() {
     };
   }, [selectedPort]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -77,7 +77,7 @@ export default function Portfolio() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 35,
@@ -114,7 +114,7 @@ export default function Portfolio() {
         `}
       </style>
       {/* =========================================================
-          PORTFOLIO-SPECIFIC BACKGROUND
+         PORTFOLIO-SPECIFIC BACKGROUND
       ========================================================= */}
 
       {/* Architectural Grid */}
@@ -135,8 +135,8 @@ export default function Portfolio() {
       />
 
       {/* =========================================================
-          NAVY SPOTLIGHT
-          Dibuat lebih muted daripada blue sebelumnya
+         NAVY SPOTLIGHT
+         Dibuat lebih muted daripada blue sebelumnya
       ========================================================= */}
 
       <div
@@ -187,7 +187,7 @@ export default function Portfolio() {
       />
 
       {/* =========================================================
-          CONTENT
+         CONTENT
       ========================================================= */}
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -292,7 +292,7 @@ export default function Portfolio() {
             >
 
               {/* =================================================
-                  IMAGE
+                 IMAGE
               ================================================= */}
 
               <img
@@ -312,7 +312,7 @@ export default function Portfolio() {
               />
 
               {/* =================================================
-                  MUTED NAVY IMAGE TINT
+                 MUTED NAVY IMAGE TINT
               ================================================= */}
 
               <div
@@ -329,7 +329,7 @@ export default function Portfolio() {
               />
 
               {/* =================================================
-                  DARK OVERLAY
+                 DARK OVERLAY
               ================================================= */}
 
               <div
@@ -344,7 +344,7 @@ export default function Portfolio() {
               />
 
               {/* =================================================
-                  NAVY HOVER SPOTLIGHT
+                 NAVY HOVER SPOTLIGHT
               ================================================= */}
 
               <div
@@ -364,8 +364,8 @@ export default function Portfolio() {
 
 
               {/* =================================================
-                  GLASS CATEGORY
-                  Navy Glassmorphism
+                 GLASS CATEGORY
+                 Navy Glassmorphism
               ================================================= */}
 
               <div
@@ -397,7 +397,7 @@ export default function Portfolio() {
               </div>
 
               {/* =================================================
-                  CONTENT
+                 CONTENT
               ================================================= */}
 
               <div
@@ -490,7 +490,7 @@ export default function Portfolio() {
       </div>
 
       {/* =========================================================
-          MODAL
+         MODAL
       ========================================================= */}
 
       <AnimatePresence>
@@ -615,7 +615,7 @@ export default function Portfolio() {
 </button>
 
               {/* =================================================
-                  MODAL IMAGE
+                 MODAL IMAGE
               ================================================= */}
 
               <div
@@ -649,7 +649,7 @@ export default function Portfolio() {
               </div>
 
               {/* =================================================
-                  MODAL CONTENT
+                 MODAL CONTENT
               ================================================= */}
 
               <div className="p-8 sm:p-10">
