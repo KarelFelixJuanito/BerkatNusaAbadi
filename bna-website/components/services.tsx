@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import {
   Wrench,
@@ -42,7 +42,7 @@ export default function Services() {
     },
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -52,7 +52,7 @@ export default function Services() {
     },
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 35,
@@ -82,7 +82,7 @@ export default function Services() {
         `}
       </style>
       {/* =========================================================
-          BACKGROUND — SAME LANGUAGE AS ABOUT US
+         BACKGROUND — SAME LANGUAGE AS ABOUT US
       ========================================================= */}
 
       {/* Dot pattern */}
