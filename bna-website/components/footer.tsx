@@ -1,37 +1,83 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Moon, Sun } from "lucide-react";
 
 export default function Footer() {
+  const [isMapDark, setIsMapDark] = useState(true); // default to dark to match the site
+
   const brands = ["LS", "Fuji Electric", "Schneider", "ABB", "PMElectric", "FORT"];
-  
-  // Menggandakan array agar animasi berjalannya mulus (tidak terpotong)
   const marqueeBrands = [...brands, ...brands, ...brands, ...brands];
 
   return (
     <>
       {/* 1. Brands Section (Infinite Marquee Berjalan) */}
-      <section className="py-12 bg-white overflow-hidden border-t border-slate-100 relative">
-        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+      {/* 1. Brands Section (Infinite Marquee Berjalan) */}
+      <section className="py-12 bg-slate-900 overflow-hidden border-t border-white/10 relative">
+        {/* Dot pattern - same language as other sections */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.045] pointer-events-none z-0" />
+
+        {/* Subtle ambient glows */}
+        <div className="absolute -top-20 left-1/4 w-[500px] h-[400px] bg-blue-500/10 rounded-full blur-[130px] pointer-events-none z-0" />
+        <div className="absolute -bottom-20 right-1/4 w-[500px] h-[400px] bg-red-500/[0.05] rounded-full blur-[130px] pointer-events-none z-0" />
+
+        {/* Fade edges - now dark instead of white */}
+        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none"></div>
         
-        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-10 text-center">Trusted Parts Supply</p>
+        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-10 text-center relative z-10">Trusted Parts Supply</p>
         
-        <div className="flex whitespace-nowrap">
+        <div className="flex whitespace-nowrap relative z-10">
           <motion.div 
             animate={{ x: [0, -1000] }} 
             transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
-            className="flex gap-20 items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-700"
+            className="flex gap-20 items-center opacity-40 grayscale hover:grayscale-0 hover:opacity-70 transition-all duration-700"
           >
             {marqueeBrands.map((brand, i) => (
-              <h3 key={i} className="text-3xl font-black text-slate-800">{brand}</h3>
+              <h3 key={i} className="text-3xl font-black text-slate-300">{brand}</h3>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* 2. Google Maps Section (Full Width) */}
-      <section className="w-full h-80 md:h-[400px] border-t border-slate-200 bg-slate-200 relative z-0">
+  {/* 2. Google Maps Section (Full Width) */}
+      <section className="w-full h-80 md:h-[400px] border-t border-slate-800 bg-slate-900 relative z-0 overflow-hidden">
+        
+        {/* Dark mode toggle button */}
+        <button
+          onClick={() => setIsMapDark(!isMapDark)}
+          className="
+            absolute top-4 right-4 z-20
+            flex items-center gap-2
+            px-4 py-2.5
+            rounded-full
+            bg-slate-900/80
+            backdrop-blur-xl
+            border border-white/15
+            text-white
+            text-xs font-bold tracking-wide uppercase
+            shadow-[0_8px_25px_rgba(0,0,0,0.4)]
+            transition-all duration-500
+            hover:bg-slate-800
+            hover:border-white/25
+            hover:scale-105
+            active:scale-95
+          "
+        >
+          {isMapDark ? (
+            <>
+              <Sun size={15} className="text-amber-400" />
+              Light Map
+            </>
+          ) : (
+            <>
+              <Moon size={15} className="text-blue-400" />
+              Dark Map
+            </>
+          )}
+        </button>
+
         <iframe
           src="https://maps.google.com/maps?q=Harkot%20Trade%20Center,%20Tangerang&t=&z=15&ie=UTF8&iwloc=&output=embed"
           width="100%"
@@ -41,7 +87,14 @@ export default function Footer() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="BNA Office Location Map"
+          className={`
+            transition-all duration-700
+            ${isMapDark ? "invert-[0.9] hue-rotate-180 contrast-[0.85] brightness-[0.9]" : "grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700"}
+          `}
         ></iframe>
+
+        {/* Subtle overlay to blend the map edge with the dark theme */}
+        <div className="absolute inset-0 ring-1 ring-inset ring-white/5 pointer-events-none z-10" />
       </section>
 
       {/* 3. Main Footer */}

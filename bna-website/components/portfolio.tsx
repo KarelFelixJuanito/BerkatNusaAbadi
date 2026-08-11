@@ -104,6 +104,15 @@ export default function Portfolio() {
         bg-slate-950
       "
     >
+      <style>
+        {`
+          @keyframes shine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+          }
+        `}
+      </style>
       {/* =========================================================
           PORTFOLIO-SPECIFIC BACKGROUND
       ========================================================= */}
@@ -195,30 +204,18 @@ export default function Portfolio() {
         >
           {/* Section Badge */}
 
-          <div
-            className="
-              inline-block
-              bg-gradient-to-r
-              from-red-500
-              to-rose-600
-              text-white
-              px-6
-              py-2
-              rounded-tl-2xl
-              rounded-br-2xl
-              rounded-tr-md
-              rounded-bl-md
-              font-bold
-              text-sm
-              tracking-widest
-              uppercase
-              mb-6
-              shadow-md
-              border
-              border-red-500/20
-            "
-          >
-            Our Portfolio
+          <div className="relative inline-block mb-6">
+            {/* Soft glow behind */}
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-red-500 via-rose-500 to-red-600 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md blur-lg opacity-60 animate-pulse" />
+
+            {/* Gradient border wrapper */}
+            <div className="relative bg-gradient-to-r from-red-400 via-rose-500 to-red-600 p-[2px] rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md shadow-lg">
+              <div className="bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-md rounded-bl-md font-bold text-sm tracking-widest uppercase overflow-hidden relative">
+                {/* Shine sweep */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full animate-[shine_3s_ease-in-out_infinite]" />
+                <span className="relative z-10">Our Portfolio</span>
+              </div>
+            </div>
           </div>
 
           {/* Heading */}
