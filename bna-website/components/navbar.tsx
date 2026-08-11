@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation"; // TAMBAHAN IMPORT ROUTER
 
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Inisialisasi router Next.js
+  const pathname = usePathname();
+  const router = useRouter();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() || 0;
@@ -26,16 +31,27 @@ export default function Navbar() {
     { name: "Portfolio", id: "portfolio" },
   ];
 
+  // LOGIKA SCROLL YANG SUDAH DIOPTIMASI
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, targetId: string) => {
     e.preventDefault();
-    setMobileOpen(false); // close mobile menu after clicking a link
-    const element = document.getElementById(targetId);
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth"
-      });
+    setMobileOpen(false); // Tutup menu mobile terlebih dahulu
+
+    // Jika kita tidak berada di halaman beranda (Home), arahkan dulu ke "/"
+    if (pathname !== "/") {
+      router.push(`/#${targetId}`);
+    } else {
+      // Jika sudah di Home, beri sedikit delay (150ms) agar menu mulai tertutup
+      // sebelum layar digulir, membuat transisinya sangat mulus di layar HP
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth"
+          });
+        }
+      }, 150);
     }
   };
 
@@ -55,7 +71,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
         
         {/* LOGO BNA DENGAN EFEK SPOTLIGHT */}
-        <a href="#" className="block cursor-pointer py-1 relative">
+        <a href="/" className="block cursor-pointer py-1 relative">
           <div className="absolute inset-0 bg-white blur-[20px] rounded-full scale-125 z-0 pointer-events-none"></div>
           <img 
             src="/logo-bna.png" 
@@ -69,7 +85,7 @@ export default function Navbar() {
           {navItems.map((item) => (
             <a 
               key={item.id}
-              href={`#${item.id}`} 
+              href={`/#${item.id}`} 
               onClick={(e) => handleSmoothScroll(e, item.id)} 
               className="relative text-sm font-semibold text-slate-300 hover:text-white transition-colors py-2 group"
             >
@@ -142,7 +158,7 @@ export default function Navbar() {
       </div>
 
       {/* =========================================================
-          MOBILE MENU PANEL — slides down below navbar on mobile/tablet
+         MOBILE MENU PANEL — slides down below navbar on mobile/tablet
       ========================================================= */}
       <AnimatePresence>
         {mobileOpen && (
@@ -157,7 +173,7 @@ export default function Navbar() {
               {navItems.map((item, i) => (
                 <motion.a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={`/#${item.id}`}
                   onClick={(e) => handleSmoothScroll(e, item.id)}
                   initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
