@@ -81,7 +81,7 @@ export default function PortfolioDetail() {
   const nextItem = portfolioData[nextIndex];
 
   // State untuk Interaksi Galeri
-  const [activeImg, setActiveImg] = useState("");
+  const [activeImg, setActiveImg] = useState(data ? data.gallery[0] : "");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   useEffect(() => {
@@ -150,16 +150,18 @@ export default function PortfolioDetail() {
               onClick={() => setIsLightboxOpen(true)}
             >
               <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeImg}
-                  src={activeImg}
-                  alt={data.title}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                {activeImg && (
+                  <motion.img
+                    key={activeImg}
+                    src={activeImg}
+                    alt={data.title}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
               </AnimatePresence>
               
               <div className="absolute inset-0 bg-blue-950/0 group-hover:bg-blue-950/20 transition-all duration-300 flex items-center justify-center">
