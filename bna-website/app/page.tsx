@@ -14,10 +14,35 @@ export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const { scrollYProgress } = useScroll();
 
+  // ================= UBAH USE-EFFECT MENJADI SEPERTI INI =================
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2500);
-    return () => clearTimeout(timer);
+    const shouldSkipSplash = sessionStorage.getItem("skipSplash");
+    const savedScroll = sessionStorage.getItem("scrollPos");
+
+    if (shouldSkipSplash === "true") {
+      // 1. Langsung sembunyikan splash screen karena kita kembali dari portfolio
+      setShowSplash(false);
+      
+      // 2. Hapus token agar jika pengunjung me-refresh manual, splash screen muncul lagi
+      sessionStorage.removeItem("skipSplash");
+      
+      // 3. Kembalikan ke posisi scroll terakhir secara instan
+      if (savedScroll) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: parseInt(savedScroll),
+            behavior: "instant" // Pakai instant agar tidak meluncur panjang dari atas
+          });
+          sessionStorage.removeItem("scrollPos");
+        }, 100); // Jeda super singkat agar Next.js selesai me-render halaman
+      }
+    } else {
+      // Tampilkan splash screen normal kalau baru masuk pertama kali atau di-refresh
+      const timer = setTimeout(() => setShowSplash(false), 2500);
+      return () => clearTimeout(timer);
+    }
   }, []);
+  // =======================================================================
 
   const heroSlides = [
     {
